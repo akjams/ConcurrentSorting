@@ -1,0 +1,14 @@
+#Binaries
+*.class
+
+#OSX meta info
+.DS_Store
+
+#Eclipse
+.classpath
+.project
+.settings
+
+#Maven
+target/
+pom.xml

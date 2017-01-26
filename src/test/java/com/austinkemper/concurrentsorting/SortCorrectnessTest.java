@@ -8,14 +8,7 @@ public class SortCorrectnessTest {
     
     private final int TEST_SIZE = 1000;
     
-    private boolean isSorted(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            if (array[i] > array[i + 1]) {
-                return false;
-            }
-        }
-        return true;
-    }
+
     
     private int[] getReverseSortedArray() {
         int[] array = new int[TEST_SIZE];
@@ -28,7 +21,7 @@ public class SortCorrectnessTest {
     private boolean sorterWorks(Sorter sorter) {
         int[] array = getReverseSortedArray();
         sorter.sort(array);
-        return isSorted(array);
+        return SortedChecker.isSorted(array);
     }
 
     @Test

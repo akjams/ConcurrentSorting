@@ -2,6 +2,8 @@ package com.austinkemper.concurrentsorting;
 
 import static org.junit.Assert.*;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 
 public class SortCorrectnessTest {
@@ -20,13 +22,23 @@ public class SortCorrectnessTest {
     
     private boolean sorterWorks(Sorter sorter) {
         int[] array = getReverseSortedArray();
-        sorter.sort(array);
-        return SortedChecker.isSorted(array);
+        int[] sortedArray = sorter.sort(array);
+        Arrays.sort(array);
+        return Arrays.equals(array, sortedArray);
     }
 
     @Test
     public void testSimpleSorter() {
         assertTrue(sorterWorks(new SimpleSorter()));
     }
-
+    
+    @Test
+    public void testThreadSorter() {
+        assertTrue(sorterWorks(new ThreadSorter()));
+    }
+    
+    @Test
+    public void testExecutorSorter() {
+        assertTrue(sorterWorks(new ExecutorSorter()));
+    }
 }

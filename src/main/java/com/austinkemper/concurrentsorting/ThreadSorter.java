@@ -17,6 +17,7 @@ public class ThreadSorter implements Sorter {
             }
         });
         background.start();
+
         Arrays.sort(firstHalf);
         try {
             background.join();

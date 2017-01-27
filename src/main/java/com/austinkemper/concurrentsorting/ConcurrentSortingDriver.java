@@ -1,13 +1,17 @@
 package com.austinkemper.concurrentsorting;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+
 public class ConcurrentSortingDriver {
-    final static int SIZE = 1000000;
+    final static int SIZE = 1000;
     
     public static void main(String[] args) {
+        printArrayTimes();
+    }
+    
+    private static void printArrayTimes() {
         int[] array = new int[SIZE]; 
         for (int i = 0; i < array.length; i++) {
             array[i] = array.length - i;

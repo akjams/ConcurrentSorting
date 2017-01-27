@@ -33,6 +33,10 @@ public class SortCorrectnessTest {
     }
     
     @Test
+    public void testParallelSorter() {
+        assertTrue(sorterWorks(new ParallelSorter()));
+    }    
+    @Test
     public void testThreadSorter() {
         assertTrue(sorterWorks(new ThreadSorter()));
     }

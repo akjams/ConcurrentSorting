@@ -9,6 +9,11 @@ public class ConcurrentSortingDriver {
     
     public static void main(String[] args) {
         printArrayTimes();
+        chart();
+    }
+    
+    private static void chart() {
+        ChartHelper.go();
     }
     
     private static void printArrayTimes() {

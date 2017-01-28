@@ -5,34 +5,53 @@ import java.util.List;
 
 
 public class ConcurrentSortingDriver {
-    final static int SIZE = 1000;
+    private final static int SIZE = 1000;
+    //private final static int[] xvalues = {10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};
+    private final static int[] xvalues = {10, 100, 1000, 10000, 100000};
+    private static List<Sorter> sorters;
     
     public static void main(String[] args) {
-        printArrayTimes();
-        chart();
+        createSorters();
+        printArrayTimes(SIZE);
+        chartArrayTimes();
     }
     
-    private static void chart() {
-        int[] xs = {1, 2, 3, 4, 5};
-        int[] ys = {1, 4, 9, 16, 25};
-        SortingDataset sd = new SortingDataset("Test", xs, ys);
-        List<SortingDataset> sdList= new ArrayList<SortingDataset>();
-        sdList.add(sd);
-        ChartHelper.go(sdList);
-    }
-    
-    private static void printArrayTimes() {
-        int[] array = new int[SIZE]; 
-        for (int i = 0; i < array.length; i++) {
-            array[i] = array.length - i;
-        }
-        
-        List<Sorter> sorters= new ArrayList<Sorter>();
+    private static void createSorters() {
+        sorters = new ArrayList<Sorter>();
         sorters.add(new SimpleSorter());
         sorters.add(new ThreadSorter());
         sorters.add(new ParallelSorter());
         sorters.add(new ExecutorSorter());
-        
+    }
+    
+    private static void chartArrayTimes() {
+        List<SortingDataset> sdList= new ArrayList<SortingDataset>();
+        for (Sorter s : sorters) {
+            sdList.add(getSortingDataset(s));
+        }
+        ChartHelper.go(sdList);
+    }
+    
+    private static SortingDataset getSortingDataset(Sorter sorter) {
+        String name = sorter.toString();
+        int[] yvalues = new int[xvalues.length];
+        for (int i = 0; i < xvalues.length; i++){
+            int[] reverseArray = getReverseArray(xvalues[i]);
+            yvalues[i] = (int) timeToSort(sorter, reverseArray); //Cast to int
+        }
+        return new SortingDataset(name, xvalues, yvalues);
+    }
+    
+    private static int[] getReverseArray(int size) {
+        int[] array = new int[size]; 
+        for (int i = 0; i < array.length; i++) {
+            array[i] = array.length - i;
+        }
+        return array;
+    }
+    
+    private static void printArrayTimes(int size) {
+        int[] array = getReverseArray(size);
         for (Sorter s : sorters) {
             System.out.printf("%15s: %10d\n", s.toString(), timeToSort(s, array));
         }

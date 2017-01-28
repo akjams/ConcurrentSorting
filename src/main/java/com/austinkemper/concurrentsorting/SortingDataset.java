@@ -1,5 +1,4 @@
 package com.austinkemper.concurrentsorting;
-
 import org.jfree.data.xy.XYSeries;
 
 public class SortingDataset {

@@ -1,21 +1,34 @@
 package com.austinkemper.concurrentsorting;
-
 import java.util.ArrayList;
 import java.util.List;
 
 
+/**Class with main method, 
+ * Calls methods to instantiates sorters, tests performance, and generate chart.
+ * @author austinkemper
+ */
 public class ConcurrentSortingDriver {
     private final static int SIZE = 1000;
-    //private final static int[] xvalues = {10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};
-    private final static int[] xvalues = {10, 100, 1000, 10000, 100000};
+    
+    //large xvalue range
+    private final static int[] xvalues = {10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000};
+    
+    //small xvalue range for testing
+    //private final static int[] xvalues = {10, 100, 1000, 10000, 100000};
+    
     private static List<Sorter> sorters;
     
+    /**Main method. Generate chart and text output.
+     * @param args
+     */
     public static void main(String[] args) {
         createSorters();
         printArrayTimes(SIZE);
         chartArrayTimes();
     }
     
+    //Generate list of sorters.
+    //To test new sorters, add them here!
     private static void createSorters() {
         sorters = new ArrayList<Sorter>();
         sorters.add(new SimpleSorter());
@@ -32,6 +45,8 @@ public class ConcurrentSortingDriver {
         ChartHelper.go(sdList);
     }
     
+    //Test performance on sorter and create a data set
+    //using the SortingDataset helper class
     private static SortingDataset getSortingDataset(Sorter sorter) {
         String name = sorter.toString();
         int[] yvalues = new int[xvalues.length];
@@ -42,6 +57,7 @@ public class ConcurrentSortingDriver {
         return new SortingDataset(name, xvalues, yvalues);
     }
     
+    //Generate an array that is reverse sorted of size size
     private static int[] getReverseArray(int size) {
         int[] array = new int[size]; 
         for (int i = 0; i < array.length; i++) {
@@ -50,6 +66,8 @@ public class ConcurrentSortingDriver {
         return array;
     }
     
+    //Test performance on all sorters on reverse arrays of size size
+    //output to stdout
     private static void printArrayTimes(int size) {
         int[] array = getReverseArray(size);
         for (Sorter s : sorters) {
@@ -57,6 +75,7 @@ public class ConcurrentSortingDriver {
         }
     }
     
+    //Find the time it takes s to sort array
     private static long timeToSort(Sorter s, int[] array) {
         long startTime = System.nanoTime();
         s.sort(array);

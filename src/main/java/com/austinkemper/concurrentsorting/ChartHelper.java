@@ -18,6 +18,9 @@ import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeriesCollection;
 
+/**Class to use the JFreeChart library to generate a chart of sorting data
+ * @author austinkemper
+ */
 public class ChartHelper extends JFrame {
     private static final long serialVersionUID = 1L;
     
@@ -28,6 +31,9 @@ public class ChartHelper extends JFrame {
     final List<SortingDataset> datasets;
     JFreeChart jFreeChart;
     
+    /**Chart datasets
+     * @param datasets the datasets to chart.
+     */
     public ChartHelper(List<SortingDataset> datasets) {
         super("Concurrent Sorting Results");
         this.datasets = datasets;
@@ -47,6 +53,8 @@ public class ChartHelper extends JFrame {
         return new ChartPanel(chart);
     }
     
+    //Make axes logarithmic.
+    //Make lines thick. 
     private void styleChart(JFreeChart chart) {
         //Make x axis logarithmic scale
         chart.getXYPlot().setDomainAxis(new LogarithmicAxis(xAxisLabel));

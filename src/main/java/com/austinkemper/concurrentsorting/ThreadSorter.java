@@ -2,6 +2,9 @@ package com.austinkemper.concurrentsorting;
 
 import java.util.Arrays;
 
+/**Implementation of Sorter using two threads and the Thread class.
+ * @author austinkemper
+ */
 public class ThreadSorter implements Sorter {
 
     public int[] sort(int[] array) {

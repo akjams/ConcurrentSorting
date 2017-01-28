@@ -4,8 +4,11 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**Implementation of Sorter using two threads and the ExecutorService.
+ * @author austinkemper
+ */
 public class ExecutorSorter implements Sorter{
-
+    
     public int[] sort(int[] array) {
         int[] firstHalf = Arrays.copyOfRange(array, 0, array.length/2);
         int[] secondHalf = Arrays.copyOfRange(array, array.length/2, array.length);
@@ -16,8 +19,7 @@ public class ExecutorSorter implements Sorter{
         return Merger.merge(firstHalf, secondHalf);
     }
     
-    
-    
+    //Private runnable class to sort half of the array.
     private static class SortTask implements Runnable {
         int[] array;
         SortTask(int[] array) {

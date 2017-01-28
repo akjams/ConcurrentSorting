@@ -1,6 +1,16 @@
 package com.austinkemper.concurrentsorting;
 
-public class Merger {
+/**Helper class with one method to merge two sorted arrays into a sorted array.
+ * @author austinkemper
+ *
+ */
+public final class Merger {
+
+    /**Merge two sorted arrays into a larger sorted array.
+     * @param first the first array.
+     * @param second the second array.
+     * @return a merged sorted array.
+     */
     public static int[] merge(int[] first, int[] second) {
         int[] merged = new int[first.length + second.length];
         int firstIndex = 0, secondIndex = 0, mergedIndex = 0;
@@ -15,7 +25,6 @@ public class Merger {
             }
             mergedIndex++;
         }
-        
         while(firstIndex < first.length) {
             merged[mergedIndex] = first[firstIndex];
             firstIndex++;

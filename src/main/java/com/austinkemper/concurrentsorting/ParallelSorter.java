@@ -2,6 +2,9 @@ package com.austinkemper.concurrentsorting;
 
 import java.util.Arrays;
 
+/**Implementation of Sorter using Arrays.parallelSort.
+ * @author austinkemper
+ */
 public class ParallelSorter implements Sorter{
 
     public int[] sort(int[] array) {

@@ -13,7 +13,12 @@ public class ConcurrentSortingDriver {
     }
     
     private static void chart() {
-        ChartHelper.go();
+        int[] xs = {1, 2, 3, 4, 5};
+        int[] ys = {1, 4, 9, 16, 25};
+        SortingDataset sd = new SortingDataset("Test", xs, ys);
+        List<SortingDataset> sdList= new ArrayList<SortingDataset>();
+        sdList.add(sd);
+        ChartHelper.go(sdList);
     }
     
     private static void printArrayTimes() {

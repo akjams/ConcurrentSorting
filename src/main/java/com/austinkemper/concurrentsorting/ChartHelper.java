@@ -1,6 +1,7 @@
 package com.austinkemper.concurrentsorting;
 
 import java.awt.BorderLayout;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,22 +15,22 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
 public class ChartHelper extends JFrame {
+    List<SortingDataset> datasets;
     
-    public ChartHelper() {
-        super("XY Line Chart Example with JFreechart");
- 
+    public ChartHelper(List<SortingDataset> datasets) {
+        super("Concurrent Sorting Results");
+        this.datasets = datasets;
         JPanel chartPanel = createChartPanel();
         add(chartPanel, BorderLayout.CENTER);
- 
         setSize(640, 480);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
  
     private JPanel createChartPanel() {
-        String chartTitle = "Objects Movement Chart";
-        String xAxisLabel = "X";
-        String yAxisLabel = "Y";
+        String chartTitle = "Concurrent Sorting Results";
+        String xAxisLabel = "Number of Elements";
+        String yAxisLabel = "Sorting Time (ns)";
      
         XYDataset dataset = createDataset();
      
@@ -41,40 +42,18 @@ public class ChartHelper extends JFrame {
  
     private XYDataset createDataset() {
         XYSeriesCollection dataset = new XYSeriesCollection();
-        XYSeries series1 = new XYSeries("Object 1", false);
-        XYSeries series2 = new XYSeries("Object 2", false);
-        XYSeries series3 = new XYSeries("Object 3", false);
-     
-        series1.add(1.0, 2.0);
-        series1.add(2.0, 3.0);
-        series1.add(3.0, 2.5);
-        series1.add(3.5, 2.8);
-        series1.add(4.2, 6.0);
-     
-        series2.add(2.0, 1.0);
-        series2.add(2.5, 2.4);
-        series2.add(3.2, 1.2);
-        series2.add(3.9, 2.8);
-        series2.add(4.6, 3.0);
-     
-        series3.add(1.2, 4.0);
-        series3.add(2.5, 4.4);
-        series3.add(3.8, 4.2);
-        series3.add(4.3, 3.8);
-        series3.add(4.5, 4.0);
-     
-        dataset.addSeries(series1);
-        dataset.addSeries(series2);
-        dataset.addSeries(series3);
-     
+        for (SortingDataset sortingDS : this.datasets) {
+            dataset.addSeries(sortingDS.getSeries());
+        }
         return dataset;
     }
  
-    public static void go() {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new ChartHelper().setVisible(true);
-            }
-        });
+    public static void go(List<SortingDataset> datasets) {
+        new ChartHelper(datasets).setVisible(true);
+//        SwingUtilities.invokeLater(new Runnable() {
+//            public void run() {
+//                new ChartHelper(datasets).setVisible(true);
+//            }
+//        });
     }
 }
